@@ -25,7 +25,7 @@ class m160711_063831_create_rubric_table extends Migration
             'parent_id',
             'rubric',
             'id',
-            'RESTRICT'
+            'CASCADE'
         );
     }
 
