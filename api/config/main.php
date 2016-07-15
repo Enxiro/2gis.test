@@ -17,6 +17,10 @@ return [
         ]
     ],
     'components' => [
+        'user' => [
+            'identityClass' => 'common\models\User',
+            'enableAutoLogin' => true
+        ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
@@ -26,14 +30,15 @@ return [
                 ],
             ],
         ],
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'v1/buildings' => 'v1/building/index',
+                'v1/buildings/<id:\d+>' => 'v1/building/view',
+                'v1/firms' => 'v1/firm/index'
             ],
         ],
-        */
     ],
     'params' => $params,
 ];
