@@ -50,8 +50,23 @@ class Firm extends \yii\db\ActiveRecord
             'address' => function() {
                 return $this->building->street . ', ' . $this->building->building_number;
             },
-            'phones'
+            'address_point' => function() {
+                return [
+                    'lat' => $this->building->lat,
+                    'lng' => $this->building->lng
+                ];
+            },
+            'phones',
+            'rubrics'
         ];
+    }
+
+    /**
+     * @return array
+     */
+    public function extraFields()
+    {
+        return [];
     }
 
     /**

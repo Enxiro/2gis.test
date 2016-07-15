@@ -40,6 +40,14 @@ class Rubric extends \yii\db\ActiveRecord
     }
 
     /**
+     * @return array
+     */
+    public function extraFields()
+    {
+        return [];
+    }
+
+    /**
      * @inheritdoc
      */
     public function attributeLabels()
