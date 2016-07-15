@@ -1,0 +1,10 @@
+{
+  "name": "2GIS API",
+  "version": "1.0.0",
+  "description": "2GIS REST API",
+  "url" : "http://api.2gis.local/v1",
+  "sampleUrl" : "http://api.2gis.local/v1",
+  "template": {
+    "forceLanguage": "en"
+  }
+}

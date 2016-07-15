@@ -1,0 +1,219 @@
+[
+  {
+    "type": "get",
+    "url": "/v1/buildings/:id",
+    "title": "Request building",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>Users unique ID.</p>"
+          }
+        ]
+      }
+    },
+    "name": "GetBuilding",
+    "group": "Building",
+    "sampleRequest": [
+      {
+        "url": "http://api.2gis.local/v1/buildings/:id"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "Object[]",
+            "description": "<p>building       Building object.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n    \"id\": \"4001\",\n    \"street\": \"Мартынов Street\",\n    \"building_number\": \"55\",\n    \"lat\": \"20.18014100\",\n    \"lng\": \"-101.80668800\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "api/modules/v1/controllers/BuildingController.php",
+    "groupTitle": "Building"
+  },
+  {
+    "type": "get",
+    "url": "/v1/buildings",
+    "title": "Request buildings list",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "page",
+            "defaultValue": "1",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "per-page",
+            "defaultValue": "20",
+            "description": "<p>min 1, max 50</p>"
+          }
+        ]
+      }
+    },
+    "name": "GetBuildings",
+    "group": "Building",
+    "sampleRequest": [
+      {
+        "url": "http://api.2gis.local/v1/buildings"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "buildings",
+            "description": "<p>List of buildings.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n[\n      {\n          \"id\": \"4001\",\n          \"street\": \"Мартынов Street\",\n          \"building_number\": \"55\",\n          \"lat\": \"20.18014100\",\n          \"lng\": \"-101.80668800\"\n      },\n      {\n\n          \"id\": \"4002\",\n          \"street\": \"Мишин Street\",\n          \"building_number\": \"15\",\n          \"lat\": \"39.59943100\",\n          \"lng\": \"107.25838300\"\n      }\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "api/modules/v1/controllers/BuildingController.php",
+    "groupTitle": "Building"
+  },
+  {
+    "type": "get",
+    "url": "/v1/firms",
+    "title": "Request buildings list",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "page",
+            "defaultValue": "1",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "per-page",
+            "defaultValue": "20",
+            "description": "<p>min 1, max 50</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "building-id",
+            "description": "<p>Get firms of building</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "rubric-id",
+            "description": "<p>Get firms of rubric</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "point-lat",
+            "description": "<p>Required if uses search by area. Point latitude value. Uses for search firms by area</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "point-lng",
+            "description": "<p>Required if uses search by area. Point latitude value. Uses for search firms by area</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "point-type",
+            "description": "<p>Required if uses search by area. 1 - circle, 2 - rectangle</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "point-radius",
+            "description": "<p>Required if uses search by circle area. Value - degree</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "point-width",
+            "description": "<p>Required if uses search by rectangle area. Value - degree (full width of rectangle. point will be in the middle)</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "point-height",
+            "description": "<p>Required if uses search by rectangle area. Value - degree (full height of rectangle. point will be in the middle)</p>"
+          }
+        ]
+      }
+    },
+    "name": "GetFirms",
+    "group": "Firm",
+    "sampleRequest": [
+      {
+        "url": "http://api.2gis.local/v1/firms"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "firms",
+            "description": "<p>List of firms.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n[\n     {\n          \"id\": 1,\n          \"name\": \"ООО Компания ГаражАлмаз\",\n          \"building_id\": 112,\n          \"address\": \"Сергеев Street, 80\",\n          \"address_point\": {\n              \"lat\": \"34.29617700\",\n              \"lng\": \"24.34471600\"\n          },\n          \"phones\": [\n              {\n                  \"id\": 1,\n                  \"firm_id\": 1,\n                  \"type\": 20,\n                  \"phone\": \"3200498\"\n              },\n              {\n                  \"id\": 2,\n                  \"firm_id\": 1,\n                  \"type\": 10,\n                  \"phone\": \"89352535095\"\n              },\n              {\n                  \"id\": 3,\n                  \"firm_id\": 1,\n                  \"type\": 20,\n                  \"phone\": \"3103771\"\n              }\n          ],\n          \"rubrics\": [\n              {\n                  \"id\": 52,\n                  \"parent_id\": 49,\n                  \"name\": \"Перетягивание удава\"\n              }\n          ]\n      }\n  ]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "api/modules/v1/controllers/FirmController.php",
+    "groupTitle": "Firm"
+  }
+]
