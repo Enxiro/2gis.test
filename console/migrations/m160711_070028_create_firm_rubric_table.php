@@ -12,10 +12,15 @@ class m160711_070028_create_firm_rubric_table extends Migration
      */
     public function up()
     {
+        $tableOptions = null;
+        if ($this->db->driverName === 'mysql') {
+            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
+        }
+
         $this->createTable('firm_rubric', [
             'firm_id' => $this->integer()->notNull(),
             'rubric_id' => $this->integer()->notNull(),
-        ]);
+        ], $tableOptions);
 
         $this->addPrimaryKey(
             'pk-firm_rubric',

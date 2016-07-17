@@ -13,11 +13,16 @@ class m160711_063831_create_rubric_table extends Migration
      */
     public function up()
     {
+        $tableOptions = null;
+        if ($this->db->driverName === 'mysql') {
+            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
+        }
+
         $this->createTable('rubric', [
             'id' => $this->primaryKey(),
             'parent_id' => $this->integer()->defaultValue(NULL),
             'name' => $this->string(255)->notNull()
-        ]);
+        ], $tableOptions);
 
         $this->addForeignKey(
             'fk-rubric-rubric',
