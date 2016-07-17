@@ -17,6 +17,8 @@ use Yii;
  */
 class Firm extends \yii\db\ActiveRecord
 {
+    public $distance;
+
     /**
      * @inheritdoc
      */
@@ -57,7 +59,8 @@ class Firm extends \yii\db\ActiveRecord
                 ];
             },
             'phones',
-            'rubrics'
+            'rubrics',
+            'distance'
         ];
     }
 

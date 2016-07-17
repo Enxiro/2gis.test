@@ -16,7 +16,7 @@ use api\modules\v1\models\Firm;
 class FirmController extends Controller
 {
     // TODO
-    const CACHE_DURATION = 60;
+    const CACHE_DURATION = 1;
 
     const DEFAULT_PAGE_SIZE = 20;
     const MIX_PAGE_SIZE = 1;
@@ -102,7 +102,21 @@ class FirmController extends Controller
         $activeDataProvider = $cache->get($cacheKey);
         if (!$activeDataProvider) {
 
-            $query = Firm::find()->joinWith(['phones', 'building', 'firmRubrics']);
+
+            $query = Firm::find()
+                ->select([
+                    'firm.*',
+//                    '( 3956 * 2 * ASIN(SQRT( POWER(SIN((:point_lat - abs( building.lat)) * pi()/180 / 2),2) +
+//                    COS(:point_lat * pi()/180 ) * COS( abs(building.lat) *  pi()/180) * POWER(SIN( ( :point_lng – building.lng) *  pi()/180 / 2),
+//                    2) )) ) as distance'
+
+                    '( 3959 * acos( cos( radians(37) ) * cos( radians( building.lat ) ) * cos( radians( building.lng ) - radians(-122) ) + sin( radians(37) ) * sin( radians( building.lat ) ) ) ) AS distance'
+                ])
+                ->joinWith(['phones', 'building', 'firmRubrics'])
+                ->addParams([
+                    ':point_lat' => '5',
+                    ':point_lng' => 5
+                ]);
 
             // Get params
             $params = Yii::$app->request->queryParams;
