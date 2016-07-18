@@ -20,7 +20,7 @@ define({ "api": [
     "group": "Building",
     "sampleRequest": [
       {
-        "url": "http://api.2gis.local/v1/buildings/:id"
+        "url": "http://api.gildman.ru/v1/buildings/:id"
       }
     ],
     "success": {
@@ -76,7 +76,7 @@ define({ "api": [
     "group": "Building",
     "sampleRequest": [
       {
-        "url": "http://api.2gis.local/v1/buildings"
+        "url": "http://api.gildman.ru/v1/buildings"
       }
     ],
     "success": {
@@ -166,7 +166,7 @@ define({ "api": [
             "type": "Number",
             "optional": true,
             "field": "point-radius",
-            "description": "<p>Required if uses search by circle area. Value - degree</p>"
+            "description": "<p>Required if uses search by circle area. Value - kilometers</p>"
           },
           {
             "group": "Parameter",
@@ -189,7 +189,7 @@ define({ "api": [
     "group": "Firm",
     "sampleRequest": [
       {
-        "url": "http://api.2gis.local/v1/firms"
+        "url": "http://api.gildman.ru/v1/firms"
       }
     ],
     "success": {
