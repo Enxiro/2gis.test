@@ -12,8 +12,7 @@ use api\modules\v1\models\Building;
 
 class BuildingController extends Controller
 {
-    // TODO
-    const CACHE_DURATION = 60;
+    const CACHE_DURATION = 360;
 
     const DEFAULT_PAGE_SIZE = 20;
     const MIX_PAGE_SIZE = 1;

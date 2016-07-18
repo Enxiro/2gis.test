@@ -15,8 +15,7 @@ use api\modules\v1\models\Firm;
 
 class FirmController extends Controller
 {
-    // TODO
-    const CACHE_DURATION = 1;
+    const CACHE_DURATION = 360;
 
     const DEFAULT_PAGE_SIZE = 20;
     const MIX_PAGE_SIZE = 1;
