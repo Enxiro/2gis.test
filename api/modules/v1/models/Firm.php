@@ -30,6 +30,7 @@ class Firm extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    // TODO : phone number must be unique
     public function rules()
     {
         return [
@@ -60,7 +61,7 @@ class Firm extends \yii\db\ActiveRecord
             },
             'phones',
             'rubrics',
-            'distance'
+            //'distance'
         ];
     }
 

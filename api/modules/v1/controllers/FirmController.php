@@ -35,7 +35,7 @@ class FirmController extends Controller
      * @apiParam {Number} [point-lat] Required if uses search by area. Point latitude value. Uses for search firms by area
      * @apiParam {Number} [point-lng] Required if uses search by area. Point latitude value. Uses for search firms by area
      * @apiParam {Number} [point-type] Required if uses search by area. 1 - circle, 2 - rectangle
-     * @apiParam {Number} [point-radius] Required if uses search by circle area. Value - degree
+     * @apiParam {Number} [point-radius] Required if uses search by circle area. Value - kilometers
      * @apiParam {Number} [point-width] Required if uses search by rectangle area. Value - degree (full width of rectangle. point will be in the middle)
      * @apiParam {Number} [point-height] Required if uses search by rectangle area. Value - degree (full height of rectangle. point will be in the middle)
      *
@@ -92,6 +92,8 @@ class FirmController extends Controller
      */
     public function actionIndex()
     {
+        // TODO: move search engine and params binding to model FirmSearch
+        
         // Add current query params to cache key
         $cacheKey = Yii::$app->request->queryParams;
         // Add unique cache name
@@ -103,20 +105,7 @@ class FirmController extends Controller
         if (!$activeDataProvider) {
 
 
-            $query = Firm::find()
-                ->select([
-                    'firm.*',
-//                    '( 3956 * 2 * ASIN(SQRT( POWER(SIN((:point_lat - abs( building.lat)) * pi()/180 / 2),2) +
-//                    COS(:point_lat * pi()/180 ) * COS( abs(building.lat) *  pi()/180) * POWER(SIN( ( :point_lng – building.lng) *  pi()/180 / 2),
-//                    2) )) ) as distance'
-
-                    '( 3959 * acos( cos( radians(37) ) * cos( radians( building.lat ) ) * cos( radians( building.lng ) - radians(-122) ) + sin( radians(37) ) * sin( radians( building.lat ) ) ) ) AS distance'
-                ])
-                ->joinWith(['phones', 'building', 'firmRubrics'])
-                ->addParams([
-                    ':point_lat' => '5',
-                    ':point_lng' => 5
-                ]);
+            $query = Firm::find()->joinWith(['phones', 'building', 'firmRubrics']);
 
             // Get params
             $params = Yii::$app->request->queryParams;
@@ -157,8 +146,26 @@ class FirmController extends Controller
                     if (empty($params['point-radius'])) {
                         throw new BadRequestHttpException ("Required param for search by circle point is missing: point-radius");
                     }
-                    // TODO
-                    // ...
+
+                    $query->andFilterWhere([
+                        '>=', 'building.lat', $params['point-lat'] - $params['point-radius']
+                    ])->andFilterWhere([
+                        '<=', 'building.lat', $params['point-lat'] + $params['point-radius']
+                    ]);
+
+                    $query->andFilterWhere([
+                        '>=', 'building.lng', $params['point-lng'] - $params['point-radius']
+                    ])->andFilterWhere([
+                        '<=', 'building.lng', $params['point-lng'] + $params['point-radius']
+                    ]);
+
+                    // Get distance between point and objects (km)
+                    $query->select([
+                        'firm.*',
+                        '( 6371 * acos( cos( radians( '.floatval($params['point-lat']).' ) ) * cos( radians( building.lat ) ) * cos( radians( building.lng ) - radians('.floatval($params['point-lng']).') ) + sin( radians('.floatval($params['point-lat']).') ) * sin( radians( building.lat ) ) ) ) AS distance'
+                    ])->having('distance < :distance', [ ':distance' => $params['point-radius'] ]);
+
+
                 } elseif ($params['point-type'] == self::POINT_TYPE_RECTANGLE) {
                     if (empty($params['point-height'])) {
                         throw new BadRequestHttpException ("Required param for search by rectangle point is missing: point-height");
